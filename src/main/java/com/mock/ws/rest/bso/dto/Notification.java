@@ -1,15 +1,15 @@
-package com.mock.ws.rest.bso.entities;
+package com.mock.ws.rest.bso.dto;
 
 public class Notification {
 
-	private String techData;
+	private TechData techData;
 	private BusinessData businessData;
 
-	public String getTechData() {
+	public TechData getTechData() {
 		return techData;
 	}
 
-	public void setTechData(String techData) {
+	public void setTechData(TechData techData) {
 		this.techData = techData;
 	}
 

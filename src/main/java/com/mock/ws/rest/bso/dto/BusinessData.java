@@ -1,24 +1,24 @@
-package com.mock.ws.rest.bso.entities;
+package com.mock.ws.rest.bso.dto;
 
 public class BusinessData {
 
-	private String bso;
-	private String agent;
+	private Bso bso;
+	private Agent agent;
 	private String issueDate;
 
-	public String getBso() {
+	public Bso getBso() {
 		return bso;
 	}
 
-	public void setBso(String bso) {
+	public void setBso(Bso bso) {
 		this.bso = bso;
 	}
 
-	public String getAgent() {
+	public Agent getAgent() {
 		return agent;
 	}
 
-	public void setAgent(String agent) {
+	public void setAgent(Agent agent) {
 		this.agent = agent;
 	}
 
