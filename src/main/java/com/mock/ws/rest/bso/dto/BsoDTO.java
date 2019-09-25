@@ -1,6 +1,6 @@
 package com.mock.ws.rest.bso.dto;
 
-public class Bso {
+public class BsoDTO {
 
 	private String series;
 	private String number;

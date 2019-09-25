@@ -1,6 +1,6 @@
 package com.mock.ws.rest.bso.dto;
 
-public class Agent {
+public class AgentDTO {
 
 	private long lnr;
 	private long skk;

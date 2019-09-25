@@ -9,6 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mock.ws.rest.bso.dto.AgentDTO;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.repository.IBsoRepository;
 
@@ -21,30 +22,32 @@ public class AgentRepository implements IBsoRepository{
 	
 	public Agent getByLnrAndSkk(long lnr, long skk) {
 		System.out.println("lnr: " + lnr + ", skk: " + skk);
-		Agent agent = new Agent();
-		agent.setLnr(lnr);
-		agent.setSkk(skk);
-		save(agent);
-		return agent;
-		/*
-		System.out.println("lnr: " + lnr + ", skk: " + skk);
 		Session session = hibernateTemplate.getSessionFactory().openSession();
 		Query<Agent> query = session.createQuery("from Agent a WHERE a.lnr=:lnr and a.skk=:skk", Agent.class);
 		query.setParameter("lnr", lnr);
 		query.setParameter("skk", skk);
 		List<Agent> agents = query.list();
+		session.close();
+		
 		if(agents.size() == 0) {
-			Agent agent = new Agent();
-			agent.setLnr(lnr);
-			agent.setSkk(skk);
-			agents.add(save(agent));
+			return null;
 		}
-		return agents.get(0);		
-		*/
+		
+		return agents.get(0);
 	}
 	
 	public Long save(Agent agent) {
 		System.out.println("trying to save agent");
 		return (Long) hibernateTemplate.save(agent);
+	}
+
+	public Agent save(AgentDTO agentDTO) {
+		Agent agent = new Agent();
+		agent.setLnr(agentDTO.getLnr());
+		agent.setSkk(agentDTO.getSkk());
+		Long agentId = save(agent);
+		System.out.println("Agent saved with id: " + agentId);
+		
+		return hibernateTemplate.get(Agent.class, agentId);
 	}
 }
