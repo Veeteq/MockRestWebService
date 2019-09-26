@@ -6,6 +6,8 @@ public class TechData {
 	private String actionId;
 	private String correlationId;
 	private boolean disableCacheReads;
+	private String responseCode;
+	private String errorDescription;
 
 	public boolean isDisableCacheWrites() {
 		return disableCacheWrites;
@@ -31,11 +33,27 @@ public class TechData {
 		this.correlationId = correlationId;
 	}
 
-	public boolean getDisableCacheReads() {
+	public boolean isDisableCacheReads() {
 		return disableCacheReads;
 	}
 
 	public void setDisableCacheReads(boolean disableCacheReads) {
 		this.disableCacheReads = disableCacheReads;
+	}
+
+	public String getResponseCode() {
+		return responseCode;
+	}
+
+	public void setResponseCode(String responseCode) {
+		this.responseCode = responseCode;
+	}
+
+	public String getErrorDescription() {
+		return errorDescription;
+	}
+
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
 	}
 }

@@ -5,11 +5,13 @@ import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="bso_issuances")
 @AttributeOverride(name="id", column=@Column(name="id"))
+@SequenceGenerator(name="default_seq", sequenceName="bsoissuance_seq", allocationSize=1)
 public class BsoIssuance extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

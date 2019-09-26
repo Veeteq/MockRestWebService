@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.mock.ws.rest.bso.dto.BsoDTO;
+import com.mock.ws.rest.bso.dto.request.BsoDTO;
 import com.mock.ws.rest.bso.model.Bso;
 import com.mock.ws.rest.bso.repository.IBsoRepository;
 

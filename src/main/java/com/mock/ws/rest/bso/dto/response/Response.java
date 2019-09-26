@@ -1,6 +1,8 @@
-package com.mock.ws.rest.bso.dto;
+package com.mock.ws.rest.bso.dto.response;
 
-public class Notification {
+import com.mock.ws.rest.bso.dto.TechData;
+
+public class Response {
 
 	private TechData techData;
 	private BusinessData businessData;

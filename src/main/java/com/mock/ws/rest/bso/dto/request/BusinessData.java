@@ -1,4 +1,4 @@
-package com.mock.ws.rest.bso.dto;
+package com.mock.ws.rest.bso.dto.request;
 
 public class BusinessData {
 

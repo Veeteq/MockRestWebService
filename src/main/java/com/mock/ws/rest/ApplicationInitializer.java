@@ -1,5 +1,10 @@
 package com.mock.ws.rest;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
+import org.h2.server.web.WebServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
@@ -19,4 +24,11 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 		return new String [] {"/rest/*"};
 	}
 
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());
+		h2Servlet.setLoadOnStartup(2);
+		h2Servlet.addMapping("/console/");
+	}
 }

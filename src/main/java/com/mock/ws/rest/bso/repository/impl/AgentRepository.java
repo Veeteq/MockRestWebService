@@ -9,7 +9,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mock.ws.rest.bso.dto.AgentDTO;
+import com.mock.ws.rest.bso.dto.request.AgentDTO;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.repository.IBsoRepository;
 
