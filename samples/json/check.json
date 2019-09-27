@@ -1,0 +1,20 @@
+{
+  "techData" : {
+    "disableCacheWrites" : false,
+    "actionId" : "f819fd85-2063-4653-8ec8-4aa9684ee2b4",
+    "correlationId" : "48518f7b-7604-4fe5-9cd6-b91c230cd618",
+    "disableCacheReads" : false
+  },
+ "businessData" : {
+    "bso" : {
+      "series" : "7003",
+      "number" : "17758081",
+      "type" : "40"
+    },
+    "agent" : {
+      "lnr" : 772087919202,
+      "skk" : 22907020
+    },
+    "issueDate" : "2019-09-24"
+  }
+}

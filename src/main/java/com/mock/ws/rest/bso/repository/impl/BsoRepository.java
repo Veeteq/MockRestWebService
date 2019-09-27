@@ -41,15 +41,15 @@ public class BsoRepository implements IBsoRepository {
 	public Bso save(BsoDTO bsoDTO) {
 		Bso bso = new Bso();
 		bso.setSeries(bsoDTO.getSeries());
-		bso.setNumber(Integer.parseInt(bsoDTO.getNumber()));
-		bso.setType(Integer.parseInt(bsoDTO.getType()));
+		bso.setNumber(bsoDTO.getNumber());
+		bso.setType(bsoDTO.getType());
 		Long bsoId = save(bso);
 		System.out.println("Bso saved with id: " + bsoId);
 		
 		return hibernateTemplate.get(Bso.class, bsoId);
 	}
 
-	private Long save(Bso bso) {
+	public Long save(Bso bso) {
 		System.out.println("trying to save bso");
 		return (Long) hibernateTemplate.save(bso);
 	}

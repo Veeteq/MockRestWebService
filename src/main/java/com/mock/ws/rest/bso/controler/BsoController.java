@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mock.ws.rest.bso.dto.request.AgentBsoDTO;
 import com.mock.ws.rest.bso.dto.request.AgentDTO;
+import com.mock.ws.rest.bso.dto.request.BsoDTO;
 import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.BusinessData;
 import com.mock.ws.rest.bso.dto.response.Response;
@@ -71,6 +73,27 @@ public class BsoController {
 			resultBuilder.append(response.getBusinessData().getResult()).append(System.lineSeparator());			
 		}
 		data.setResult(resultBuilder.toString());
+		Response response = new Response();
+		response.setBusinessData(data);
+		return response;
+	}
+
+	@RequestMapping(value = "/agent_bso", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	public Response addBsoForAgent(@RequestBody AgentBsoDTO agentBsoDTO) {
+		BusinessData data = new BusinessData();
+		data.setSystem(this.getClass().getName());
+
+		Long lnr = agentBsoDTO.getLnr();
+		Long skk = agentBsoDTO.getSkk();
+		Agent agent = agentService.getAgentByLnrAndSkk(lnr, skk);
+		if (agent == null) {
+			String result = String.format("Agent with LNR %1$s, SKK %2$s does not exist", lnr, skk);
+			data.setResult(result);
+		}
+		
+		for(BsoDTO bsoDTO : agentBsoDTO.getBso()) {
+			bsoService.addBsoToAgent(bsoDTO, agent);
+		}
 		Response response = new Response();
 		response.setBusinessData(data);
 		return response;

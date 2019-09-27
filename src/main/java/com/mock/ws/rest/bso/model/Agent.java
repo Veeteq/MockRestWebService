@@ -12,8 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="agents")
-@AttributeOverride(name="id", column=@Column(name="id"))
+@Table(schema="REST", name="AGENTS")
+@AttributeOverride(name="id", column=@Column(name="agent_id"))
 @SequenceGenerator(name="default_seq", sequenceName="agent_seq", allocationSize=1)
 public class Agent extends BaseEntity {
 
@@ -83,5 +83,10 @@ public class Agent extends BaseEntity {
 
 	public void setBsoDocuments(Set<Bso> bsoDocuments) {
 		this.bsoDocuments = bsoDocuments;
+	}
+	
+	public void addBso(Bso bso) {
+		bso.setAgent(this);
+		bsoDocuments.add(bso);
 	}
 }
