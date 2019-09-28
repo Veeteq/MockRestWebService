@@ -12,9 +12,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema="REST", name="AGENTS")
+@Table(name="AGENTS")
 @AttributeOverride(name="id", column=@Column(name="agent_id"))
-@SequenceGenerator(name="default_seq", sequenceName="agent_seq", allocationSize=1)
+@SequenceGenerator(name="default_seq", sequenceName="AGENT_SEQ", allocationSize=1)
 public class Agent extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;

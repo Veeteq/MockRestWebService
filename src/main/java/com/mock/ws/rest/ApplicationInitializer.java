@@ -7,11 +7,11 @@ import javax.servlet.ServletRegistration;
 import org.h2.server.web.WebServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] {ApplicationConfiguration.class};
+		return new Class[] { ApplicationConfiguration.class };
 	}
 
 	@Override
@@ -21,14 +21,18 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String [] {"/rest/*"};
+		return new String[] { "/rest/*" };
 	}
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-		ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());
-		h2Servlet.setLoadOnStartup(2);
-		h2Servlet.addMapping("/console/");
+		servletContext.setInitParameter("spring.profiles.active", "oracle");
+
+		if (servletContext.getInitParameter("spring.profiles.active") == "h2") {
+			ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());
+			h2Servlet.setLoadOnStartup(2);
+			h2Servlet.addMapping("/console/");
+		}
 	}
 }

@@ -9,9 +9,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema="REST", name="REQUESTS_HISTORY")
+@Table(name="REQUESTS_HISTORY")
 @AttributeOverride(name="id", column=@Column(name="history_id"))
-@SequenceGenerator(name="default_seq", sequenceName="history_seq", allocationSize=1)
+@SequenceGenerator(name="default_seq", sequenceName="HISTORY_SEQ", allocationSize=1)
 public class RequestsHistory extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class RequestsHistory extends BaseEntity {
 	@Column(name="disableCacheReads")
 	private boolean disableCacheReads;
 	
-	@Column(name="responseCode")
+	@Column(name="response_code")
 	private String responseCode;
 	
 	@Column(name="errorDescription")
@@ -43,13 +43,13 @@ public class RequestsHistory extends BaseEntity {
 	private long skk;
 	
 	/*BSO*/
-	@Column(name="series")
+	@Column(name="bso_series")
 	private String series;
 	
-	@Column(name="number")
+	@Column(name="bso_number")
 	private String number;
 	
-	@Column(name="type")
+	@Column(name="bso_type")
 	private String type;
 	
 	/*IssueDate*/

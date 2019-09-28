@@ -3,5 +3,6 @@ https://github.com/eugenp/tutorials/tree/master/persistence-modules/spring-hiber
 https://www.baeldung.com/hibernate-4-spring
 https://sanaulla.info/2017/11/19/configure-embedded-h2-console-with-spring-mvc-application/
 https://sanaulla.info/category/spring/
+https://javapapers.com/spring/profile-annotation-improvements-in-spring-4/
 
 curl -i -X POST -H "Content-Type:application/json" -d @samples/agent.json http://localhost:8282/MockWebService/rest/bso/agent 

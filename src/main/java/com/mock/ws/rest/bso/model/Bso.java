@@ -14,17 +14,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(schema="REST", name="BSO")
+@Table(name="BSO")
 @AttributeOverride(name="id", column=@Column(name="bso_id"))
-@SequenceGenerator(name="default_seq", sequenceName="bso_seq", allocationSize=1)
+@SequenceGenerator(name="default_seq", sequenceName="BSO_SEQ", allocationSize=1)
 public class Bso extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="series")
+	@Column(name="bso_series")
 	private String series;
 	
-	@Column(name="number")
+	@Column(name="bso_number")
 	private String number;
 	
 	@Column(name="type")

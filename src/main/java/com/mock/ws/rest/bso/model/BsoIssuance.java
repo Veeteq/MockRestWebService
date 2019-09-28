@@ -7,23 +7,28 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(schema="REST", name="BSO_ISSUANCES")
+@Table(name="BSO_ISSUANCES")
 @AttributeOverride(name="id", column=@Column(name="bsoissuance_id"))
-@SequenceGenerator(name="default_seq", sequenceName="bsoissuance_seq", allocationSize=1)
+@SequenceGenerator(name="default_seq", sequenceName="BSOISSUANCE_SEQ", allocationSize=1)
 public class BsoIssuance extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="bso_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="bso_id", nullable=false)
 	private Bso bso;
 	
-	@Column(name="agent_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="agent_id", nullable=false)
 	private Agent agent;
 	
 	@Column(name="issue_date", columnDefinition="DATE", nullable=false)
