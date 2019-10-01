@@ -1,4 +1,4 @@
-package com.mock.ws.rest.bso.controler;
+package com.mock.ws.rest.bso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,6 +1,7 @@
 package com.mock.ws.rest.bso.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -34,7 +35,7 @@ public class BsoService {
 	}
 
 	@Transactional
-	public Long save(BsoDTO bsoDTO) {
+	public Optional<Bso> save(BsoDTO bsoDTO) {
 		Bso bso = new Bso();
 		BeanUtils.copyProperties(bsoDTO, bso);		
 		return bsoRepository.save(bso);
@@ -55,11 +56,11 @@ public class BsoService {
 		
 		
 		BsoDTO bsoDTO = request.getBusinessData().getBso();
-		Bso bso = bsoRepository.getBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType()); 
+		Optional<Bso> bso = bsoRepository.getBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType()); 
 
 		LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
 				
-		CheckRequestValidator.validateRequest(agent, bso, checkDate);
+		CheckRequestValidator.validateRequest(agent, bso.get(), checkDate);
 		
 		Response response = new Response();
 		BusinessData data = new BusinessData();

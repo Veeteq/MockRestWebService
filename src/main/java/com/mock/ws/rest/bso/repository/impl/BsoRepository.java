@@ -1,13 +1,12 @@
 package com.mock.ws.rest.bso.repository.impl;
 
-import java.util.List;
+import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.mock.ws.rest.bso.dto.request.BsoDTO;
@@ -18,39 +17,36 @@ import com.mock.ws.rest.bso.repository.IBsoRepository;
 @Transactional
 public class BsoRepository implements IBsoRepository {
 
-	@Autowired
-	private HibernateTemplate hibernateTemplate;
+	  @PersistenceContext
+	  private EntityManager em;
 
-	public Bso getBySeriesAndNumberAndType(String series, String number, String type) {
+	public Optional<Bso> getBySeriesAndNumberAndType(String series, String number, String type) {
 		System.out.println("series: " + series + ", number: " + number + ", type: " + type);
-		Session session = hibernateTemplate.getSessionFactory().openSession();
-		Query<Bso> query = session.createQuery("from Bso a WHERE a.series=:series and a.number=:number and a.type=:type", Bso.class);
+		//Session session = em.createQuery(qlString, resultClass)  hibernateTemplate.getSessionFactory().openSession();
+		TypedQuery<Bso> query = em.createQuery("SELECT b FROM Bso b WHERE b.series=:series and a.number=:number and a.type=:type", Bso.class);
 		query.setParameter("series", series);
 		query.setParameter("number", Integer.parseInt(number));
 		query.setParameter("type", Integer.parseInt(type));
-		List<Bso> bsos = query.list();
-		session.close();
-		
-		if(bsos.size() == 0) {
-			return null;
-		}
-		
-		return bsos.get(0);
+		Bso bso = query.getSingleResult();
+
+		return Optional.ofNullable(bso);
 	}
 
-	public Bso save(BsoDTO bsoDTO) {
+	public Optional<Bso> save(BsoDTO bsoDTO) {
 		Bso bso = new Bso();
 		bso.setSeries(bsoDTO.getSeries());
 		bso.setNumber(bsoDTO.getNumber());
 		bso.setType(bsoDTO.getType());
-		Long bsoId = save(bso);
+		Long bsoId = save(bso).get().getId();
 		System.out.println("Bso saved with id: " + bsoId);
 		
-		return hibernateTemplate.get(Bso.class, bsoId);
+		em.persist(bso);
+		return Optional.ofNullable(bso);
 	}
 
-	public Long save(Bso bso) {
+	public Optional<Bso> save(Bso bso) {
 		System.out.println("trying to save bso");
-		return (Long) hibernateTemplate.save(bso);
+		em.persist(bso);
+		return Optional.ofNullable(bso);
 	}
 }
