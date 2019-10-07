@@ -1,6 +1,7 @@
 package com.mock.ws.rest.bso.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -17,8 +18,8 @@ import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
 import com.mock.ws.rest.bso.model.Status;
-import com.mock.ws.rest.bso.repository.impl.AgentRepository;
-import com.mock.ws.rest.bso.repository.impl.BsoRepository;
+import com.mock.ws.rest.bso.repository.AgentRepository;
+import com.mock.ws.rest.bso.repository.BsoRepository;
 import com.mock.ws.rest.bso.validators.CheckRequestValidator;
 import com.mock.ws.rest.utils.DateUtils;
 
@@ -35,7 +36,7 @@ public class BsoService {
 	}
 
 	@Transactional
-	public Optional<Bso> save(BsoDTO bsoDTO) {
+	public Bso save(BsoDTO bsoDTO) {
 		Bso bso = new Bso();
 		BeanUtils.copyProperties(bsoDTO, bso);		
 		return bsoRepository.save(bso);
@@ -52,15 +53,18 @@ public class BsoService {
 
 	public Response processRequest(Request request) {
 		AgentDTO agentDTO = request.getBusinessData().getAgent();
-		Agent agent = agentRepository.getByLnrAndSkk(agentDTO.getLnr(), agentDTO.getSkk());
+		Optional<Agent> agent = agentRepository.findByLnrAndSkk(agentDTO.getLnr(), agentDTO.getSkk());
 		
 		
 		BsoDTO bsoDTO = request.getBusinessData().getBso();
-		Optional<Bso> bso = bsoRepository.getBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType()); 
+		List<Bso> bsoList = bsoRepository.findBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType());
+		if(bsoList.size() == 1) {
+			Bso bso = bsoList.get(0);
+			LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
+			
+			CheckRequestValidator.validateRequest(agent.get(), bso, checkDate);
+		}
 
-		LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
-				
-		CheckRequestValidator.validateRequest(agent, bso.get(), checkDate);
 		
 		Response response = new Response();
 		BusinessData data = new BusinessData();

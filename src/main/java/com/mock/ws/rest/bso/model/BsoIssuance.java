@@ -17,25 +17,25 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="BSO_ISSUANCES")
-@AttributeOverride(name="id", column=@Column(name="bsoissuance_id"))
+@AttributeOverride(name="id", column=@Column(name="BSOISSUANCE_ID"))
 @SequenceGenerator(name="default_seq", sequenceName="BSOISSUANCE_SEQ", allocationSize=1)
 public class BsoIssuance extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="bso_id", nullable=false)
+	@JoinColumn(name="BSO_ID", nullable=false)
 	private Bso bso;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="agent_id", nullable=false)
+	@JoinColumn(name="AGENT_ID", nullable=false)
 	private Agent agent;
 	
-	@Column(name="issue_date", columnDefinition="DATE", nullable=false)
+	@Column(name="ISSUE_DATE", columnDefinition="DATE", nullable=false)
 	@CreationTimestamp	
 	private LocalDateTime issueDate;
 
-	@Column(name="status")
+	@Column(name="STATUS")
 	@Enumerated(value = EnumType.STRING)
 	private Status status = Status.N;
 	

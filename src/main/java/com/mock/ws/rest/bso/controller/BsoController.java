@@ -48,10 +48,10 @@ public class BsoController {
 		BusinessData data = new BusinessData();
 		data.setSystem(this.getClass().getName());
 		
-		Agent agent = agentService.getAgentByLnrAndSkk(lnr, skk);
+		Agent agent = agentService.getAgentByLnrAndSkk(lnr, skk).get();
 		if (agent == null) {
-			Long agentId = agentService.save(agentDTO);
-			String result = String.format("Agent with LNR %1$s, SKK %2$s saved with id %3$s", lnr, skk, agentId);
+			Agent newAgent = agentService.save(agentDTO);
+			String result = String.format("Agent with LNR %1$s, SKK %2$s saved with id %3$s", lnr, skk, newAgent);
 			data.setResult(result);
 		} else {
 			String result = String.format("Agent with LNR %1$s, SKK %2$s already exists", lnr, skk);			
@@ -86,7 +86,7 @@ public class BsoController {
 
 		Long lnr = agentBsoDTO.getLnr();
 		Long skk = agentBsoDTO.getSkk();
-		Agent agent = agentService.getAgentByLnrAndSkk(lnr, skk);
+		Agent agent = agentService.getAgentByLnrAndSkk(lnr, skk).get();
 		if (agent == null) {
 			String result = String.format("Agent with LNR %1$s, SKK %2$s does not exist", lnr, skk);
 			data.setResult(result);

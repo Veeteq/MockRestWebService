@@ -20,13 +20,13 @@ public class Agent extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="CODE")
-	private long code;
+	private Long code;
 
 	@Column(name="LNR")
-	private long lnr;
+	private Long lnr;
 	
 	@Column(name="SKK")
-	private long skk;
+	private Long skk;
 	
 	@Column(name="FIRST_NAME")
 	private String firstName;
@@ -37,27 +37,27 @@ public class Agent extends BaseEntity {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="agent")
 	private Set<Bso> bsoDocuments = new HashSet<>();
 
-	public long getCode() {
+	public Long getCode() {
 		return code;
 	}
 
-	public void setCode(long code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 
-	public long getLnr() {
+	public Long getLnr() {
 		return lnr;
 	}
 
-	public void setLnr(long lnr) {
+	public void setLnr(Long lnr) {
 		this.lnr = lnr;
 	}
 
-	public long getSkk() {
+	public Long getSkk() {
 		return skk;
 	}
 
-	public void setSkk(long skk) {
+	public void setSkk(Long skk) {
 		this.skk = skk;
 	}
 

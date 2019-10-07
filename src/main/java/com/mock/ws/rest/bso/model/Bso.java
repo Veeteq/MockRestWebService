@@ -15,30 +15,30 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name="BSO")
-@AttributeOverride(name="id", column=@Column(name="bso_id"))
+@AttributeOverride(name="id", column=@Column(name="BSO_ID"))
 @SequenceGenerator(name="default_seq", sequenceName="BSO_SEQ", allocationSize=1)
 public class Bso extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="bso_series")
+	@Column(name="BSO_SERIES")
 	private String series;
 	
-	@Column(name="bso_number")
+	@Column(name="BSO_NUMBER")
 	private String number;
 	
-	@Column(name="type")
+	@Column(name="TYPE")
 	private String type;
 	
-	@Column(name="status")
+	@Column(name="STATUS")
 	private Status status;
 
-	@Column(name="update_date", columnDefinition="TIMESTAMP", nullable=false)
+	@Column(name="UPDATE_DATE", columnDefinition="TIMESTAMP", nullable=false)
 	@CreationTimestamp
 	private LocalDateTime updateDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="agent_id", nullable=false)
+	@JoinColumn(name="AGENT_ID", nullable=false)
 	private Agent agent;
 	
 	public String getSeries() {

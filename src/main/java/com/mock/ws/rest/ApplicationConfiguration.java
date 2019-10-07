@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = "com.mock.ws.rest")
-public class ApplicationConfiguration {}
+@EnableWebMvc
+public class ApplicationConfiguration {
+	public static final String PROFILE_H2 = "h2";
+	public static final String PROFILE_ORCLE = "oracle";
+
+}

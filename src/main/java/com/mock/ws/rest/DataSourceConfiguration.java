@@ -26,7 +26,7 @@ public class DataSourceConfiguration {
 	}
 
 	@Bean(name="dataSource")
-	@Profile(value="h2")
+	@Profile(value=ApplicationConfiguration.PROFILE_H2)
 	public DataSource getDevDataSource() {
 		System.out.println("running getDevDataSource() for H2");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -38,7 +38,7 @@ public class DataSourceConfiguration {
 	}
 
 	@Bean(name="dataSource")
-	@Profile(value="oracle")
+	@Profile(value=ApplicationConfiguration.PROFILE_ORCLE)
 	public DataSource getProdDataSource() {
 		System.out.println("running getProdDataSource() for Oracle");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -50,7 +50,7 @@ public class DataSourceConfiguration {
 	}
 	
 	@Bean(name="hibernateProperties")
-	@Profile("h2")
+	@Profile(value=ApplicationConfiguration.PROFILE_H2)
 	public Properties getDevHibernateProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
@@ -62,7 +62,7 @@ public class DataSourceConfiguration {
 	}
 	
 	@Bean(name="hibernateProperties")
-	@Profile("oracle")
+	@Profile(value=ApplicationConfiguration.PROFILE_ORCLE)
 	public Properties getProdHibernateProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));

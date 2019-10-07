@@ -29,7 +29,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 		super.onStartup(servletContext);
 		//servletContext.setInitParameter("spring.profiles.active", "oracle");
 
-		if (servletContext.getInitParameter("spring.profiles.active") == "h2") {
+		if (servletContext.getInitParameter("spring.profiles.active") == ApplicationConfiguration.PROFILE_H2) {
 			ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());
 			h2Servlet.setLoadOnStartup(2);
 			h2Servlet.addMapping("/console/");
