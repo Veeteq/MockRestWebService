@@ -17,22 +17,22 @@ public class RequestsHistory extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	/*TechData*/
-	@Column(name="disableCacheWrites")
+	@Column(name="disable_cache_writes")
 	private boolean disableCacheWrites;
 	
-	@Column(name="actionId")
+	@Column(name="action_id")
 	private String actionId;
 	
-	@Column(name="correlationId")
+	@Column(name="correlation_id")
 	private String correlationId;
 	
-	@Column(name="disableCacheReads")
+	@Column(name="disable_cache_reads")
 	private boolean disableCacheReads;
 	
 	@Column(name="response_code")
 	private String responseCode;
 	
-	@Column(name="errorDescription")
+	@Column(name="error_description")
 	private String errorDescription;
 	
 	/*Agent*/
@@ -53,6 +53,6 @@ public class RequestsHistory extends BaseEntity {
 	private String type;
 	
 	/*IssueDate*/
-	@Column(name="issueDate")
+	@Column(name="issue_date")
 	private LocalDateTime issueDate;
 }

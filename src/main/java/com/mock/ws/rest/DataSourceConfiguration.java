@@ -16,12 +16,19 @@ import org.springframework.stereotype.Component;
 @PropertySource({ "classpath:application.properties" })
 public class DataSourceConfiguration {
 
-	@Autowired
 	private Environment env;
 
-	@Bean(name = "dataSource")
-	@Profile("h2")
+	@Autowired
+	public DataSourceConfiguration(Environment env) {
+		this.env = env;
+		String activeProfiles = String.join(", ", env.getActiveProfiles());
+		System.out.println(activeProfiles);
+	}
+
+	@Bean(name="dataSource")
+	@Profile(value="h2")
 	public DataSource getDevDataSource() {
+		System.out.println("running getDevDataSource() for H2");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.h2.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.h2.url"));
@@ -30,9 +37,10 @@ public class DataSourceConfiguration {
 		return dataSource;
 	}
 
-	@Bean(name = "dataSource")
-	@Profile("oracle")
+	@Bean(name="dataSource")
+	@Profile(value="oracle")
 	public DataSource getProdDataSource() {
+		System.out.println("running getProdDataSource() for Oracle");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.oracle.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.oracle.url"));
@@ -41,7 +49,7 @@ public class DataSourceConfiguration {
 		return dataSource;
 	}
 	
-	@Bean(name = "hibernateProperties")
+	@Bean(name="hibernateProperties")
 	@Profile("h2")
 	public Properties getDevHibernateProperties() {
 		Properties properties = new Properties();
@@ -53,7 +61,7 @@ public class DataSourceConfiguration {
 		return properties;
 	}
 	
-	@Bean(name = "hibernateProperties")
+	@Bean(name="hibernateProperties")
 	@Profile("oracle")
 	public Properties getProdHibernateProperties() {
 		Properties properties = new Properties();

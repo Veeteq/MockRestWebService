@@ -2,6 +2,7 @@ package com.mock.ws.rest;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PersistenceConfig {
 
 	@Autowired
 	private Properties hibernateProperties;
-	
+
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -34,18 +35,22 @@ public class PersistenceConfig {
 		sessionFactory.setHibernateProperties(hibernateProperties);
 		return sessionFactory;
 	}
-	
+
 	@Bean
 	public HibernateTemplate hibernateTemplate() {
 		HibernateTemplate hibernateTemplate = new HibernateTemplate();
 		hibernateTemplate.setSessionFactory(sessionFactory().getObject());
 		return hibernateTemplate;
 	}
-	
+
 	@Bean
 	HibernateTransactionManager hibernateTransactionManager() {
 		HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
 		hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());
 		return hibernateTransactionManager;
+	}
+	
+	@Bean EntityManager entityManager() {
+		return hibernateTemplate().getSessionFactory().createEntityManager();
 	}
 }

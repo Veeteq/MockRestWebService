@@ -34,7 +34,7 @@ public class BsoController {
 		return "hello";
 	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	@RequestMapping(value = "/check_bso5", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public Response bsoCheckStatus(@RequestBody Request request) {
 		Response response = bsoService.processRequest(request);
 		return response;
@@ -64,6 +64,7 @@ public class BsoController {
 	
 	@RequestMapping(value = "/agents", method = RequestMethod.POST, consumes="application/json")
 	public Response addAgents(@RequestBody AgentDTO[] agentsDTO) {
+		System.out.println("addAgents");
 		BusinessData data = new BusinessData();
 		data.setSystem(this.getClass().getName());
 		

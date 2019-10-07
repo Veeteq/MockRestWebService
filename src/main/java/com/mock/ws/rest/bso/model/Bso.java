@@ -33,7 +33,7 @@ public class Bso extends BaseEntity {
 	@Column(name="status")
 	private Status status;
 
-	@Column(name="updateDate", columnDefinition="TIMESTAMP", nullable=false)
+	@Column(name="update_date", columnDefinition="TIMESTAMP", nullable=false)
 	@CreationTimestamp
 	private LocalDateTime updateDate;
 	

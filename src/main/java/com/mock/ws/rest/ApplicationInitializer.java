@@ -27,7 +27,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-		servletContext.setInitParameter("spring.profiles.active", "oracle");
+		//servletContext.setInitParameter("spring.profiles.active", "oracle");
 
 		if (servletContext.getInitParameter("spring.profiles.active") == "h2") {
 			ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());

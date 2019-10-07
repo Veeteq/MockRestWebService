@@ -13,25 +13,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="AGENTS")
-@AttributeOverride(name="id", column=@Column(name="agent_id"))
+@AttributeOverride(name="id", column=@Column(name="AGENT_ID"))
 @SequenceGenerator(name="default_seq", sequenceName="AGENT_SEQ", allocationSize=1)
 public class Agent extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="code")
+	@Column(name="CODE")
 	private long code;
 
-	@Column(name="lnr")
+	@Column(name="LNR")
 	private long lnr;
 	
-	@Column(name="skk")
+	@Column(name="SKK")
 	private long skk;
 	
-	@Column(name="firstName")
+	@Column(name="FIRST_NAME")
 	private String firstName;
 
-	@Column(name="lastName")
+	@Column(name="LAST_NAME")
 	private String lastName;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="agent")
