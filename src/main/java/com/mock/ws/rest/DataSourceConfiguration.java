@@ -38,7 +38,7 @@ public class DataSourceConfiguration {
 	}
 
 	@Bean(name="dataSource")
-	@Profile(value=ApplicationConfiguration.PROFILE_ORCLE)
+	@Profile(value=ApplicationConfiguration.PROFILE_ORACLE)
 	public DataSource getProdDataSource() {
 		System.out.println("running getProdDataSource() for Oracle");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -62,7 +62,7 @@ public class DataSourceConfiguration {
 	}
 	
 	@Bean(name="hibernateProperties")
-	@Profile(value=ApplicationConfiguration.PROFILE_ORCLE)
+	@Profile(value=ApplicationConfiguration.PROFILE_ORACLE)
 	public Properties getProdHibernateProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));

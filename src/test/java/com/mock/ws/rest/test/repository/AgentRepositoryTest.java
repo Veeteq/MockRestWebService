@@ -23,7 +23,7 @@ import com.mock.ws.rest.bso.repository.AgentRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class, DataSourceConfiguration.class }, loader = AnnotationConfigWebContextLoader.class)
-@ActiveProfiles(value=ApplicationConfiguration.PROFILE_H2)
+@ActiveProfiles(value=ApplicationConfiguration.PROFILE_ORACLE)
 @WebAppConfiguration
 public class AgentRepositoryTest {
 
