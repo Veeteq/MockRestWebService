@@ -13,18 +13,18 @@ import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.BusinessData;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
-import com.mock.ws.rest.bso.service.AgentService;
 import com.mock.ws.rest.bso.service.BsoService;
+import com.mock.ws.rest.bso.service.IAgentService;
 
 @RestController
 @RequestMapping(path = "/bso")
 public class BsoController {
 
 	private BsoService bsoService;
-	private AgentService agentService;
+	private IAgentService agentService;
 
 	@Autowired
-	public BsoController(BsoService bsoService, AgentService agentService) {
+	public BsoController(BsoService bsoService, IAgentService agentService) {
 		this.bsoService = bsoService;
 		this.agentService = agentService;
 	}

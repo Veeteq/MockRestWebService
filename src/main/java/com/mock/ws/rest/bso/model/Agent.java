@@ -1,7 +1,9 @@
 package com.mock.ws.rest.bso.model;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
@@ -18,6 +20,7 @@ import javax.persistence.Table;
 public class Agent extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+	private static final String DELIMITER = " ";
 
 	@Column(name="CODE")
 	private Long code;
@@ -88,5 +91,11 @@ public class Agent extends BaseEntity {
 	public void addBso(Bso bso) {
 		bso.setAgent(this);
 		bsoDocuments.add(bso);
+	}
+
+	public String getName() {
+		return Arrays.asList(this.firstName, this.lastName)
+		.stream()
+		.filter(el -> el != null).collect(Collectors.joining(DELIMITER));
 	}
 }
