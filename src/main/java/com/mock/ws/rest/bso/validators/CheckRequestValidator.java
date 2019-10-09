@@ -16,6 +16,7 @@ public class CheckRequestValidator {
 		 rules.add(new ValidationForBso());
 		 rules.add(new ValidationForAgentAndBso());
 		 rules.add(new ValidationForCheckDate());
+		 rules.add(new ValidationForBsoStatus());
 		 
 		 for (ValidationRule rule : rules){
 		  rule.validate(agent, bsoList, checkDate);

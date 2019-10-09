@@ -12,6 +12,7 @@ public interface IBsoService {
 
     void addBsoToAgent(BsoDTO bsoDTO, Agent agent);
 
-    Response processRequest(Request request);
+    Response processCheckRequest(Request request);
 
+    Response processUpdateRequest(Request request);
 }

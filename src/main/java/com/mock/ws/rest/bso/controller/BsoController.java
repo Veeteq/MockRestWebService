@@ -45,11 +45,19 @@ public class BsoController {
 	public ResponseEntity<Response> bsoCheckStatus(@RequestBody Request requestBody, HttpServletRequest request) {
 		logger.info(request.toString());
 		
-		Response response = bsoService.processRequest(requestBody);
+		Response response = bsoService.processCheckRequest(requestBody);
 				
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/status_bso", method = RequestMethod.POST, consumes="application/json", produces="application/json")
+	public ResponseEntity<Response> bsoUpdateStatus(@RequestBody Request requestBody, HttpServletRequest request) {
+	    
+	    Response response = bsoService.processUpdateRequest(requestBody);
+	    
+	    return new ResponseEntity<Response>(response, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/agent", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public Response addAgent(@RequestBody AgentDTO agentDTO) {
 		Long lnr = agentDTO.getLnr();

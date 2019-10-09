@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mock.ws.rest.bso.adapter.BsoProcessingAdapter;
+import com.mock.ws.rest.bso.adapter.BsoProcessingCheckStrategy;
+import com.mock.ws.rest.bso.adapter.BsoProcessingUpdateStrategy;
 import com.mock.ws.rest.bso.builder.RequestsHistoryBuilder;
 import com.mock.ws.rest.bso.dto.request.BsoDTO;
 import com.mock.ws.rest.bso.dto.request.Request;
@@ -54,15 +56,32 @@ public class BsoService implements IBsoService {
 
 	@Override
 	@Transactional
-	public Response processRequest(Request request) {
-		//Log incoming request
-		RequestsHistory requestsHistory = RequestsHistoryBuilder.buildRequestHistory(request);
-		requestsHistoryRepository.save(requestsHistory);
+	public Response processCheckRequest(Request request) {
+		logIncomingRequest(request);
 		
 		//Start processing
-		BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter(agentRepository, bsoRepository);
-		Response response = processingAdapter.process(request);
+		BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter();
+		Response response = processingAdapter.process(request, new BsoProcessingCheckStrategy(agentRepository, bsoRepository));
 		
 		return response;
 	}
+
+    @Override
+    @Transactional
+    public Response processUpdateRequest(Request request) {
+        logIncomingRequest(request);
+
+        //Start processing
+        BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter();
+        processingAdapter.process(request, new BsoProcessingCheckStrategy(agentRepository, bsoRepository));
+        Response response = processingAdapter.process(request, new BsoProcessingUpdateStrategy(agentRepository, bsoRepository));
+        
+        return response;
+    }
+    
+    private void logIncomingRequest(Request request) {
+        //Log incoming request
+        RequestsHistory requestsHistory = RequestsHistoryBuilder.buildRequestHistory(request);
+        requestsHistoryRepository.save(requestsHistory);        
+    }
 }
