@@ -2,6 +2,8 @@ package com.mock.ws.rest.bso.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import com.mock.ws.rest.bso.service.IBsoService;
 @RequestMapping(path = "/bso")
 public class BsoController {
 
+	private static final Logger logger = LoggerFactory.getLogger(BsoController.class);
 	private IBsoService bsoService;
 	private IAgentService agentService;
 
@@ -40,7 +43,7 @@ public class BsoController {
 
 	@RequestMapping(value = "/check_bso5", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public ResponseEntity<Response> bsoCheckStatus(@RequestBody Request requestBody, HttpServletRequest request) {
-		System.out.println(request);
+		logger.info(request.toString());
 		
 		Response response = bsoService.processRequest(requestBody);
 				
@@ -71,7 +74,7 @@ public class BsoController {
 	
 	@RequestMapping(value = "/agents", method = RequestMethod.POST, consumes="application/json")
 	public Response addAgents(@RequestBody AgentDTO[] agentsDTO) {
-		System.out.println("addAgents");
+		logger.info("addAgents");
 		BusinessData data = new BusinessData();
 		data.setSystem(this.getClass().getName());
 		

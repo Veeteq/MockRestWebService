@@ -2,6 +2,8 @@ package com.mock.ws.rest.bso.service.impl;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.mock.ws.rest.bso.service.IAgentService;
 @Service
 public class AgentService implements IAgentService {
 
+	private Logger logger = LoggerFactory.getLogger(AgentService.class);
 	private AgentRepository agentRepository;
 
 	@Autowired
@@ -37,7 +40,7 @@ public class AgentService implements IAgentService {
 
 	@Override
 	public Optional<Agent> getAgentByCode(Long code) {
-		System.out.println("AgentService.getAgentByCode: " + code);
+		logger.info("AgentService.getAgentByCode: " + code);
 		return agentRepository.findByCode(code);
 	}
 }

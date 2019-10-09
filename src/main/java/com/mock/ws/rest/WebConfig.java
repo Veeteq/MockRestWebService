@@ -2,6 +2,8 @@ package com.mock.ws.rest;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -26,8 +28,10 @@ import org.springframework.web.servlet.view.JstlView;
 
 public class WebConfig implements WebMvcConfigurer {
 
+	private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+	
 	public WebConfig() {
-		System.out.println("Inside WebConfig");
+		logger.info("Starting WebConfig");
 	}
 
 	@Override
@@ -37,7 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Bean
 	public ViewResolver getViewResolver() {
-		System.out.println("Setting ViewResolver");
+		logger.info("Setting ViewResolver");
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
 		resolver.setPrefix("/folio/");
@@ -47,103 +51,71 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Validator getValidator() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public MessageCodesResolver getMessageCodesResolver() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

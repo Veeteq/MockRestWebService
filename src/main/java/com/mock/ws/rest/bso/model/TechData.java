@@ -40,12 +40,10 @@ public class TechData {
 	}
 
 	public void setActionId(UUID actionId) {
-		System.out.println("setActionId for UUID");
 		this.actionId = actionId;
 	}
 
 	public void setActionId(String actionId) {
-		System.out.println("setActionId for String");
 		this.actionId = UUID.fromString(actionId);
 	}
 
@@ -54,12 +52,10 @@ public class TechData {
 	}
 
 	public void setCorrelationId(UUID correlationId) {
-		System.out.println("setCorrelationId for UUID");
 		this.correlationId = correlationId;
 	}
 
 	public void setCorrelationId(String correlationId) {
-		System.out.println("setCorrelationId for String");
 		this.correlationId = UUID.fromString(correlationId);
 	}
 

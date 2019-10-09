@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
@@ -17,18 +19,19 @@ import org.springframework.stereotype.Component;
 public class DataSourceConfiguration {
 
 	private Environment env;
-
+	private static final Logger logger = LoggerFactory.getLogger(DataSourceConfiguration.class);
+	
 	@Autowired
 	public DataSourceConfiguration(Environment env) {
 		this.env = env;
 		String activeProfiles = String.join(", ", env.getActiveProfiles());
-		System.out.println(activeProfiles);
+		logger.info("Start creating data source for profile: " + activeProfiles);
 	}
 
 	@Bean(name="dataSource")
 	@Profile(value=ApplicationConfiguration.PROFILE_H2)
 	public DataSource getDevDataSource() {
-		System.out.println("running getDevDataSource() for H2");
+		logger.info("running getDevDataSource() for H2");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.h2.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.h2.url"));
@@ -40,7 +43,7 @@ public class DataSourceConfiguration {
 	@Bean(name="dataSource")
 	@Profile(value=ApplicationConfiguration.PROFILE_ORACLE)
 	public DataSource getProdDataSource() {
-		System.out.println("running getProdDataSource() for Oracle");
+		logger.info("running getProdDataSource() for Oracle");
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.oracle.driverClassName"));
 		dataSource.setUrl(env.getProperty("jdbc.oracle.url"));
