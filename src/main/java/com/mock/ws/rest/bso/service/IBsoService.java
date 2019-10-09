@@ -8,10 +8,10 @@ import com.mock.ws.rest.bso.model.Bso;
 
 public interface IBsoService {
 
-	Bso save(BsoDTO bsoDTO);
+    Bso save(BsoDTO bsoDTO);
 
-	void addBsoToAgent(BsoDTO bsoDTO, Agent agent);
+    void addBsoToAgent(BsoDTO bsoDTO, Agent agent);
 
-	Response processRequest(Request request);
+    Response processRequest(Request request);
 
 }

@@ -18,15 +18,15 @@ import com.mock.ws.rest.bso.model.Agent;
 @ActiveProfiles(value=ApplicationConfiguration.PROFILE_ORACLE)
 @WebAppConfiguration
 public class AgentTest {
-	
-	@Test
-	public void test() {
-		Agent agent = new Agent();
-		agent.setFirstName("Witek");
-		agent.setLastName("Wojnarowicz");
-		agent.setLnr(Long.valueOf(100));
-		
-		assertEquals(Long.valueOf(100), agent.getLnr());
-	}
+    
+    @Test
+    public void test() {
+        Agent agent = new Agent();
+        agent.setFirstName("Witek");
+        agent.setLastName("Wojnarowicz");
+        agent.setLnr(Long.valueOf(100));
+        
+        assertEquals(Long.valueOf(100), agent.getLnr());
+    }
 
 }

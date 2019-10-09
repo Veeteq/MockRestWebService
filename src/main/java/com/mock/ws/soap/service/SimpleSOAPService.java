@@ -16,24 +16,24 @@ import com.mock.ws.rest.bso.service.IAgentService;
 @WebService
 public class SimpleSOAPService extends SpringBeanAutowiringSupport implements ISOAPService {
 
-	private Logger logger = LoggerFactory.getLogger(SimpleSOAPService.class);
-	private IAgentService agentService;
-	
-	public SimpleSOAPService() {}
-	
-	@Autowired
-	public void setAgentService(IAgentService agentService) {
-		this.agentService = agentService;
-	}
+    private Logger logger = LoggerFactory.getLogger(SimpleSOAPService.class);
+    private IAgentService agentService;
+    
+    public SimpleSOAPService() {}
+    
+    @Autowired
+    public void setAgentService(IAgentService agentService) {
+        this.agentService = agentService;
+    }
 
-	@Override
-	@WebMethod
-	public String getAgentByCode(Long code) {
-		if(agentService == null) {
-			logger.info("agentService == null");
-		}
-		logger.info("SimpleSOAPService.getAgentByCode2: " + code);
-		Optional<Agent> agent = agentService.getAgentByCode(code);
-		return agent.get().getName();
-	}
+    @Override
+    @WebMethod
+    public String getAgentByCode(Long code) {
+        if(agentService == null) {
+            logger.info("agentService == null");
+        }
+        logger.info("SimpleSOAPService.getAgentByCode2: " + code);
+        Optional<Agent> agent = agentService.getAgentByCode(code);
+        return agent.get().getName();
+    }
 }

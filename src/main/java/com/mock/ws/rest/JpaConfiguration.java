@@ -23,31 +23,31 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages="com.mock.ws.rest")
 public class JpaConfiguration {
 
-	private DataSource dataSource;
-	
-	@Autowired
-	public JpaConfiguration(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
+    private DataSource dataSource;
+    
+    @Autowired
+    public JpaConfiguration(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		return new HibernateJpaVendorAdapter();
-	}
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        return new HibernateJpaVendorAdapter();
+    }
 
-	@Bean
-	LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
-		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-		emf.setDataSource(this.dataSource);
-		emf.setJpaVendorAdapter(jpaVendorAdapter);
-		emf.setPackagesToScan(new String[] {"com.mock.ws.rest.bso.model"} );
-		return emf;
-	}
-	
-	@Bean
-	PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(entityManagerFactory);
-		return transactionManager;
-	}
+    @Bean
+    LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(this.dataSource);
+        emf.setJpaVendorAdapter(jpaVendorAdapter);
+        emf.setPackagesToScan(new String[] {"com.mock.ws.rest.bso.model"} );
+        return emf;
+    }
+    
+    @Bean
+    PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
+    }
 }

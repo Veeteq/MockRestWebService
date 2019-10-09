@@ -28,95 +28,95 @@ import org.springframework.web.servlet.view.JstlView;
 
 public class WebConfig implements WebMvcConfigurer {
 
-	private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
-	
-	public WebConfig() {
-		logger.info("Starting WebConfig");
-	}
+    private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+    
+    public WebConfig() {
+        logger.info("Starting WebConfig");
+    }
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
-	}
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+    }
 
-	@Bean
-	public ViewResolver getViewResolver() {
-		logger.info("Setting ViewResolver");
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setViewClass(JstlView.class);
-		resolver.setPrefix("/folio/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
+    @Bean
+    public ViewResolver getViewResolver() {
+        logger.info("Setting ViewResolver");
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setViewClass(JstlView.class);
+        resolver.setPrefix("/folio/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
 
-	@Override
-	public void configurePathMatch(PathMatchConfigurer configurer) {
-	}
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+    }
 
-	@Override
-	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-	}
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    }
 
-	@Override
-	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-	}
+    @Override
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+    }
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	}
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    }
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-	}
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+    }
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    }
 
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+    }
 
-	@Override
-	public void configureViewResolvers(ViewResolverRegistry registry) {
-	}
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+    }
 
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-	}
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    }
 
-	@Override
-	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
-	}
+    @Override
+    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+    }
 
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	}
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    }
 
-	@Override
-	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-	}
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    }
 
-	@Override
-	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-	}
+    @Override
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+    }
 
-	@Override
-	public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-	}
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+    }
 
-	@Override
-	public Validator getValidator() {
-		return null;
-	}
+    @Override
+    public Validator getValidator() {
+        return null;
+    }
 
-	@Override
-	public MessageCodesResolver getMessageCodesResolver() {
-		return null;
-	}
+    @Override
+    public MessageCodesResolver getMessageCodesResolver() {
+        return null;
+    }
 
 }

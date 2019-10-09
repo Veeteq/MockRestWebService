@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages = "com.mock.ws.rest")
 @EnableWebMvc
 public class ApplicationConfiguration {
-	public static final String PROFILE_H2 = "h2";
-	public static final String PROFILE_ORACLE = "oracle";
+    public static final String PROFILE_H2 = "h2";
+    public static final String PROFILE_ORACLE = "oracle";
 
 }

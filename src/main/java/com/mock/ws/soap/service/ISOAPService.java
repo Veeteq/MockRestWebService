@@ -6,7 +6,7 @@ import javax.jws.WebService;
 @WebService
 public interface ISOAPService {
 
-	@WebMethod
-	String getAgentByCode(Long agentCode);
+    @WebMethod
+    String getAgentByCode(Long agentCode);
 
 }
