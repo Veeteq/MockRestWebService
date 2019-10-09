@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,25 +17,9 @@ public class RequestsHistory extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	/*TechData*/
-	@Column(name="disable_cache_writes")
-	private boolean disableCacheWrites;
-	
-	@Column(name="action_id")
-	private String actionId;
-	
-	@Column(name="correlation_id")
-	private String correlationId;
-	
-	@Column(name="disable_cache_reads")
-	private boolean disableCacheReads;
-	
-	@Column(name="response_code")
-	private String responseCode;
-	
-	@Column(name="error_description")
-	private String errorDescription;
-	
+	@Embedded
+	private TechData techData;
+		
 	/*Agent*/
 	@Column(name="lnr")
 	private long lnr;
@@ -55,4 +40,60 @@ public class RequestsHistory extends BaseEntity {
 	/*IssueDate*/
 	@Column(name="issue_date")
 	private LocalDateTime issueDate;
+
+	public TechData getTechData() {
+		return techData;
+	}
+
+	public void setTechData(TechData techData) {
+		this.techData = techData;
+	}
+
+	public long getLnr() {
+		return lnr;
+	}
+
+	public void setLnr(long lnr) {
+		this.lnr = lnr;
+	}
+
+	public long getSkk() {
+		return skk;
+	}
+
+	public void setSkk(long skk) {
+		this.skk = skk;
+	}
+
+	public String getSeries() {
+		return series;
+	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public LocalDateTime getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(LocalDateTime issueDate) {
+		this.issueDate = issueDate;
+	}
 }

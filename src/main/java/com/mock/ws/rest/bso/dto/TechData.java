@@ -1,5 +1,9 @@
 package com.mock.ws.rest.bso.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(value = Include.NON_NULL)
 public class TechData {
 
 	private boolean disableCacheWrites;

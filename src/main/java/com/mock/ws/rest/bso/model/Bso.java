@@ -10,11 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="BSO")
+@Table(name="BSO", uniqueConstraints = {@UniqueConstraint(columnNames = {"BSO_SERIES", "BSO_NUMBER"}, name = "UK_BSO_SERIES_NUMBER_INDEX_1")})
 @AttributeOverride(name="id", column=@Column(name="BSO_ID"))
 @SequenceGenerator(name="default_seq", sequenceName="BSO_SEQ", allocationSize=1)
 public class Bso extends BaseEntity {

@@ -1,8 +1,4 @@
-package com.mock.ws.rest.bso.service;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+package com.mock.ws.rest.bso.service.impl;
 
 import javax.transaction.Transactional;
 
@@ -10,31 +6,35 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mock.ws.rest.bso.dto.request.AgentDTO;
+import com.mock.ws.rest.bso.adapter.BsoProcessingAdapter;
+import com.mock.ws.rest.bso.builder.RequestsHistoryBuilder;
 import com.mock.ws.rest.bso.dto.request.BsoDTO;
 import com.mock.ws.rest.bso.dto.request.Request;
-import com.mock.ws.rest.bso.dto.response.BusinessData;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
+import com.mock.ws.rest.bso.model.RequestsHistory;
 import com.mock.ws.rest.bso.model.Status;
 import com.mock.ws.rest.bso.repository.AgentRepository;
 import com.mock.ws.rest.bso.repository.BsoRepository;
-import com.mock.ws.rest.bso.validators.CheckRequestValidator;
-import com.mock.ws.rest.utils.DateUtils;
+import com.mock.ws.rest.bso.repository.RequestsHistoryRepository;
+import com.mock.ws.rest.bso.service.IBsoService;
 
 @Service
-public class BsoService {
+public class BsoService implements IBsoService {
 
 	private AgentRepository agentRepository;
 	private BsoRepository bsoRepository;
+	private RequestsHistoryRepository requestsHistoryRepository;
 
 	@Autowired
-	public BsoService(AgentRepository agentRepository, BsoRepository bsoRepository) {
+	public BsoService(AgentRepository agentRepository, BsoRepository bsoRepository, RequestsHistoryRepository requestsHistoryRepository) {
 		this.agentRepository = agentRepository;
 		this.bsoRepository = bsoRepository;
+		this.requestsHistoryRepository = requestsHistoryRepository;
 	}
 
+	@Override
 	@Transactional
 	public Bso save(BsoDTO bsoDTO) {
 		Bso bso = new Bso();
@@ -42,6 +42,7 @@ public class BsoService {
 		return bsoRepository.save(bso);
 	}
 
+	@Override
 	@Transactional
 	public void addBsoToAgent(BsoDTO bsoDTO, Agent agent) {
 		Bso bso = new Bso();
@@ -51,27 +52,17 @@ public class BsoService {
 		bsoRepository.save(bso);
 	}
 
+	@Override
+	@Transactional
 	public Response processRequest(Request request) {
-		AgentDTO agentDTO = request.getBusinessData().getAgent();
-		Optional<Agent> agent = agentRepository.findByLnrAndSkk(agentDTO.getLnr(), agentDTO.getSkk());
+		//Log incoming request
+		RequestsHistory requestsHistory = RequestsHistoryBuilder.buildRequestHistory(request);
+		requestsHistoryRepository.save(requestsHistory);
 		
+		//Start processing
+		BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter(agentRepository, bsoRepository);
+		Response response = processingAdapter.process(request);
 		
-		BsoDTO bsoDTO = request.getBusinessData().getBso();
-		List<Bso> bsoList = bsoRepository.findBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType());
-		if(bsoList.size() == 1) {
-			Bso bso = bsoList.get(0);
-			LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
-			
-			CheckRequestValidator.validateRequest(agent.get(), bso, checkDate);
-		}
-
-		
-		Response response = new Response();
-		BusinessData data = new BusinessData();
-		data.setResult("OK");
-		data.setSystem(this.getClass().getCanonicalName());
-		response.setBusinessData(data);
-		response.setTechData(request.getTechData());
 		return response;
 	}
 }

@@ -1,23 +1,18 @@
 package com.mock.ws.rest.bso.validators;
 
-import java.util.function.Predicate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
-public class ValidationForSingle<T> implements IValidationForSingle<T>{
+import com.mock.ws.rest.bso.model.Agent;
+import com.mock.ws.rest.bso.model.Bso;
 
-	private Predicate<T> predicate;
-	private String onErrorMessage;
-	
-	public static <T> ValidationForSingle<T> from(Predicate<T> predicate, String onErrorMessage) {
-		return new ValidationForSingle<T>(predicate, onErrorMessage);
-	}
-	
-	private ValidationForSingle(Predicate<T> predicate, String onErrorMessage) {
-		this.predicate = predicate;
-		this.onErrorMessage = onErrorMessage;
-	}
-	
+public class ValidationForAgent implements ValidationRule{
+
 	@Override
-	public CheckValidationResult test(T param) {
-		return predicate.test(param) ? CheckValidationResult.ok() : CheckValidationResult.fail(onErrorMessage);
+	public void validate(Optional<Agent> agent, List<Bso> bsoList, LocalDateTime issueDate) {
+		if(!agent.isPresent()) {
+			throw new IllegalArgumentException("Agent not found");
+		}
 	}
 }

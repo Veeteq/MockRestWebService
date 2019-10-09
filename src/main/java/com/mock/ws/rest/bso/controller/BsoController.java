@@ -1,6 +1,10 @@
 package com.mock.ws.rest.bso.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,18 +17,18 @@ import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.BusinessData;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
-import com.mock.ws.rest.bso.service.BsoService;
 import com.mock.ws.rest.bso.service.IAgentService;
+import com.mock.ws.rest.bso.service.IBsoService;
 
 @RestController
 @RequestMapping(path = "/bso")
 public class BsoController {
 
-	private BsoService bsoService;
+	private IBsoService bsoService;
 	private IAgentService agentService;
 
 	@Autowired
-	public BsoController(BsoService bsoService, IAgentService agentService) {
+	public BsoController(IBsoService bsoService, IAgentService agentService) {
 		this.bsoService = bsoService;
 		this.agentService = agentService;
 	}
@@ -35,9 +39,12 @@ public class BsoController {
 	}
 
 	@RequestMapping(value = "/check_bso5", method = RequestMethod.POST, consumes="application/json", produces="application/json")
-	public Response bsoCheckStatus(@RequestBody Request request) {
-		Response response = bsoService.processRequest(request);
-		return response;
+	public ResponseEntity<Response> bsoCheckStatus(@RequestBody Request requestBody, HttpServletRequest request) {
+		System.out.println(request);
+		
+		Response response = bsoService.processRequest(requestBody);
+				
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/agent", method = RequestMethod.POST, consumes="application/json", produces="application/json")
