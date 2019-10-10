@@ -5,6 +5,7 @@ public class BsoDTO {
 	private String series;
 	private String number;
 	private String type;
+	private String status;
 
 	public String getSeries() {
 		return series;
@@ -29,4 +30,12 @@ public class BsoDTO {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

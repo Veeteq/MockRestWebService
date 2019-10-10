@@ -4,6 +4,7 @@ public class BusinessData {
 
 	private BsoDTO bso;
 	private AgentDTO agent;
+	private ContractDTO contract;
 	private String issueDate;
 
 	public BsoDTO getBso() {
@@ -29,4 +30,12 @@ public class BusinessData {
 	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;
 	}
+
+    public ContractDTO getContract() {
+        return contract;
+    }
+
+    public void setContract(ContractDTO contract) {
+        this.contract = contract;
+    }
 }

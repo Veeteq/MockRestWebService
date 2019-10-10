@@ -65,7 +65,7 @@ public class AgentRepositoryTest {
         bso1.setAgent(agent1);
         bso1.setNumber("100");
         bso1.setSeries("AAA");
-        bso1.setStatus(Status.N);
+        bso1.setStatus(Status.NEW);
         bso1.setType("40");
         
         agent1.addBso(bso1);

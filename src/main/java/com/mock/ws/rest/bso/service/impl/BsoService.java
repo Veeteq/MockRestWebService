@@ -18,7 +18,9 @@ import com.mock.ws.rest.bso.model.Bso;
 import com.mock.ws.rest.bso.model.RequestsHistory;
 import com.mock.ws.rest.bso.model.Status;
 import com.mock.ws.rest.bso.repository.AgentRepository;
+import com.mock.ws.rest.bso.repository.BsoIssuanceRepository;
 import com.mock.ws.rest.bso.repository.BsoRepository;
+import com.mock.ws.rest.bso.repository.ContractRepository;
 import com.mock.ws.rest.bso.repository.RequestsHistoryRepository;
 import com.mock.ws.rest.bso.service.IBsoService;
 
@@ -26,13 +28,21 @@ import com.mock.ws.rest.bso.service.IBsoService;
 public class BsoService implements IBsoService {
 
 	private AgentRepository agentRepository;
+    private BsoIssuanceRepository bsoIssuanceRepository;
 	private BsoRepository bsoRepository;
+    private ContractRepository contractRepository;
 	private RequestsHistoryRepository requestsHistoryRepository;
-
+	
 	@Autowired
-	public BsoService(AgentRepository agentRepository, BsoRepository bsoRepository, RequestsHistoryRepository requestsHistoryRepository) {
+	public BsoService(AgentRepository agentRepository, 
+	                  BsoRepository bsoRepository, 
+	                  BsoIssuanceRepository bsoIssuanceRepository,
+	                  ContractRepository contractRepository,
+	                  RequestsHistoryRepository requestsHistoryRepository) {
 		this.agentRepository = agentRepository;
+        this.bsoIssuanceRepository = bsoIssuanceRepository;
 		this.bsoRepository = bsoRepository;
+		this.contractRepository = contractRepository;
 		this.requestsHistoryRepository = requestsHistoryRepository;
 	}
 
@@ -50,7 +60,7 @@ public class BsoService implements IBsoService {
 		Bso bso = new Bso();
 		BeanUtils.copyProperties(bsoDTO, bso);
 		bso.setAgent(agent);
-		bso.setStatus(Status.N);
+		bso.setStatus(Status.NEW);
 		bsoRepository.save(bso);
 	}
 
@@ -60,8 +70,8 @@ public class BsoService implements IBsoService {
 		logIncomingRequest(request);
 		
 		//Start processing
-		BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter();
-		Response response = processingAdapter.process(request, new BsoProcessingCheckStrategy(agentRepository, bsoRepository));
+		BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter(agentRepository, bsoRepository);
+		Response response = processingAdapter.process(request, new BsoProcessingCheckStrategy());
 		
 		return response;
 	}
@@ -72,9 +82,8 @@ public class BsoService implements IBsoService {
         logIncomingRequest(request);
 
         //Start processing
-        BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter();
-        processingAdapter.process(request, new BsoProcessingCheckStrategy(agentRepository, bsoRepository));
-        Response response = processingAdapter.process(request, new BsoProcessingUpdateStrategy(agentRepository, bsoRepository));
+        BsoProcessingAdapter processingAdapter = new BsoProcessingAdapter(agentRepository, bsoRepository, bsoIssuanceRepository, contractRepository);
+        Response response = processingAdapter.process(request, new BsoProcessingUpdateStrategy());
         
         return response;
     }

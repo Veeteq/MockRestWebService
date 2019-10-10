@@ -11,17 +11,10 @@ import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
-import com.mock.ws.rest.bso.repository.AgentRepository;
-import com.mock.ws.rest.bso.repository.BsoRepository;
 import com.mock.ws.rest.bso.validators.CheckRequestValidator;
 import com.mock.ws.rest.utils.DateUtils;
 
 public class BsoProcessingCheckStrategy extends BsoProcessingAbstractStrategy {
-
-    public BsoProcessingCheckStrategy(AgentRepository agentRepository, BsoRepository bsoRepository) {
-        this.agentRepository = agentRepository;
-        this.bsoRepository = bsoRepository;
-    }
 
     @Override
     public Response process(Request request) {
@@ -38,12 +31,11 @@ public class BsoProcessingCheckStrategy extends BsoProcessingAbstractStrategy {
         LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
         
         try {       
-            CheckRequestValidator.validateRequest(agent, bsoList, checkDate);
+            CheckRequestValidator.validateRequest(agent, bsoList, null, checkDate);
         } catch (IllegalArgumentException exc) {
             return generateErrorResponse(response, exc.getMessage());
         }
         
         return generateSuccessResponse(response);
     }
-
 }

@@ -7,10 +7,11 @@ import java.util.Optional;
 
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
+import com.mock.ws.rest.bso.model.Status;
 
 public class CheckRequestValidator {
 	
-	public static CheckValidationResult validateRequest(Optional<Agent> agent, List<Bso> bsoList, LocalDateTime checkDate) {
+	public static ValidationResult validateRequest(Optional<Agent> agent, List<Bso> bsoList, Status bsoStatus, LocalDateTime checkDate) {
 		List<ValidationRule> rules = new ArrayList<>();
 		 rules.add(new ValidationForAgent());
 		 rules.add(new ValidationForBso());
@@ -18,9 +19,11 @@ public class CheckRequestValidator {
 		 rules.add(new ValidationForCheckDate());
 		 rules.add(new ValidationForBsoStatus());
 		 
+		 
 		 for (ValidationRule rule : rules){
-		  rule.validate(agent, bsoList, checkDate);
+		  rule.validate(agent, bsoList, bsoStatus, checkDate);
 		 }
-		 return CheckValidationResult.ok();
+		 
+		 return ValidationResult.ok();
 	}
 }

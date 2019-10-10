@@ -31,13 +31,17 @@ public class BsoIssuance extends BaseEntity {
 	@JoinColumn(name="AGENT_ID", nullable=false)
 	private Agent agent;
 	
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="POLICY_ID", nullable=true)
+    private Contract contract;
+
 	@Column(name="ISSUE_DATE", columnDefinition="DATE", nullable=false)
 	@CreationTimestamp	
 	private LocalDateTime issueDate;
 
 	@Column(name="STATUS")
 	@Enumerated(value = EnumType.STRING)
-	private Status status = Status.N;
+	private Status status = Status.NEW;
 	
 	public Bso getBso() {
 		return bso;
@@ -62,4 +66,20 @@ public class BsoIssuance extends BaseEntity {
 	public void setIssueDate(LocalDateTime issueDate) {
 		this.issueDate = issueDate;
 	}
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 }

@@ -3,8 +3,11 @@ package com.mock.ws.rest.bso.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,6 +35,7 @@ public class Bso extends BaseEntity {
 	private String type;
 	
 	@Column(name="STATUS")
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@Column(name="UPDATE_DATE", columnDefinition="TIMESTAMP", nullable=false)
@@ -41,6 +45,10 @@ public class Bso extends BaseEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="AGENT_ID", nullable=false)
 	private Agent agent;
+
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="POLICY_ID", nullable=true)
+	private Contract contract;
 	
 	public String getSeries() {
 		return series;
@@ -89,4 +97,12 @@ public class Bso extends BaseEntity {
 	public void setUpdateDate(LocalDateTime updateDate) {
 		this.updateDate = updateDate;
 	}
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 }

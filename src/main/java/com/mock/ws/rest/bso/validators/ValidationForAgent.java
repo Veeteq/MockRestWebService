@@ -6,11 +6,12 @@ import java.util.Optional;
 
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
+import com.mock.ws.rest.bso.model.Status;
 
 public class ValidationForAgent implements ValidationRule{
 
 	@Override
-	public void validate(Optional<Agent> agent, List<Bso> bsoList, LocalDateTime issueDate) {
+	public void validate(Optional<Agent> agent, List<Bso> bsoList, Status bsoStatus, LocalDateTime issueDate) {
 		if(!agent.isPresent()) {
 			throw new IllegalArgumentException("Agent not found");
 		}

@@ -11,11 +11,13 @@ import com.mock.ws.rest.bso.model.Status;
 public class ValidationForBsoStatus implements ValidationRule {
 
     @Override
-    public void validate(Optional<Agent> agent, List<Bso> bsoList, LocalDateTime issueDate) {
+    public void validate(Optional<Agent> agent, List<Bso> bsoList, Status bsoStatus, LocalDateTime issueDate) {
         Bso bso = bsoList.get(0);
-        if(bso.getStatus().equals(Status.U)) {
-            throw new IllegalArgumentException("BSO Already in use");
+        Status currentStatus = bso.getStatus();
+        
+        ValidationResult result = currentStatus.checkIfValid(bsoStatus);
+        if(!result.isValid()) {
+            throw new IllegalArgumentException(result.getMesssage());
         }
     }
-
 }
