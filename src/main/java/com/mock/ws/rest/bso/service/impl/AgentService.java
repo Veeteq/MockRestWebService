@@ -1,5 +1,6 @@
 package com.mock.ws.rest.bso.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -23,6 +24,17 @@ public class AgentService implements IAgentService {
 	@Autowired
 	public AgentService(AgentRepository agentRepository) {
 		this.agentRepository = agentRepository;
+	}
+
+	@Override
+	public List<Agent> findAll() {
+	    return agentRepository.findAll();
+	}
+	
+	public Agent updateAgent(Agent agent, AgentDTO agentDTO) {
+	    agentRepository.findById(agent.getId());
+	    agent.setMiddleName(agentDTO.getMiddleName());
+	    return agentRepository.save(agent);
 	}
 	
 	@Override

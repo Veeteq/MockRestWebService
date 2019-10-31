@@ -34,7 +34,10 @@ public class Agent extends BaseEntity {
 	@Column(name="FIRST_NAME")
 	private String firstName;
 
-	@Column(name="LAST_NAME")
+    @Column(name="MIDDLE_NAME")
+    private String middleName;
+
+    @Column(name="LAST_NAME")
 	private String lastName;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="agent")
@@ -72,7 +75,15 @@ public class Agent extends BaseEntity {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
+	public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
 		return lastName;
 	}
 

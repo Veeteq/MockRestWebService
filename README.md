@@ -14,3 +14,7 @@ https://www.programmableweb.com/apis/directory
 #SOAP Web Service
 https://github.com/discospiff/JavaFullStackEnterpriseWeb
 https://www.youtube.com/watch?v=oeBH6xC5rGY
+
+#Thymeleaf
+https://www.thymeleaf.org/doc/articles/thymeleaf3migration.html
+https://www.concretepage.com/spring-4/spring-mvc-thymeleaf

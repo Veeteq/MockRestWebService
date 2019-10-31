@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:text="#{agents.title}">Agents</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h3 th:text="#{agents.title}"> Agents </h3>
+    Date : <b th:text="${currentDate}">Sat Oct 24 2015</b><br/>
+    <p th:text="#{agents.msg}">Blog Message</p>
+    <h3 th:text="#{agents.writers}"> Writers </h3>
+    <table>
+        <tr th:each="agent : ${agents}">
+          <td th:text="${agent.code}">code</td>
+          <td th:text="${agent.lnr}">lnr</td>
+          <td th:text="${agent.skk}">skk</td>
+          <td th:text="${agent.firstName}">First Name</td>
+          <td th:text="${agent.middleName}">Middle Name</td>
+          <td th:text="${agent.lastName}">Last Name</td>          
+    </table>
+  </body>
+</html> 

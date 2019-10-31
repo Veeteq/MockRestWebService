@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
     }
-
+/*
     @Bean
     public ViewResolver getViewResolver() {
         logger.info("Setting ViewResolver");
@@ -48,7 +48,7 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-
+*/
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
     }
