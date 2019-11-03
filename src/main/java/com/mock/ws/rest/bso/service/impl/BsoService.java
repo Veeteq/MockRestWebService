@@ -15,8 +15,8 @@ import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
+import com.mock.ws.rest.bso.model.BsoStatus;
 import com.mock.ws.rest.bso.model.RequestsHistory;
-import com.mock.ws.rest.bso.model.Status;
 import com.mock.ws.rest.bso.repository.AgentRepository;
 import com.mock.ws.rest.bso.repository.BsoIssuanceRepository;
 import com.mock.ws.rest.bso.repository.BsoRepository;
@@ -60,7 +60,7 @@ public class BsoService implements IBsoService {
 		Bso bso = new Bso();
 		BeanUtils.copyProperties(bsoDTO, bso);
 		bso.setAgent(agent);
-		bso.setStatus(Status.NEW);
+		bso.setStatus(BsoStatus.NEW);
 		bsoRepository.save(bso);
 	}
 

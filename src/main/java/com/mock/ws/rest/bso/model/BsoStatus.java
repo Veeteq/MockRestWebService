@@ -8,26 +8,26 @@ import java.util.TreeMap;
 
 import com.mock.ws.rest.bso.validators.ValidationResult;
 
-public enum Status {
+public enum BsoStatus {
 	
 	NEW (1, "Not used"),
 	//2("Not used"),
 	//3("Not used"),
-	USED (4, "Used"),
-	RETURNED (5, "Returned");
+    RETURNED (4, "Returned"),
+	USED (5, "Used");
 
-    private static final Map<Integer, Status> lookup = new TreeMap<Integer, Status>();
+    private static final Map<Integer, BsoStatus> lookup = new TreeMap<Integer, BsoStatus>();
     
 	private final int code;
 	private final String description;
 	
-	private Status(int code, String description) {
+	private BsoStatus(int code, String description) {
 		this.code = code;
 		this.description = description;
 	}
 
 	static {
-        for (Status el : Status.values()) {
+        for (BsoStatus el : BsoStatus.values()) {
             lookup.put(el.getCode(), el);
         }
     }
@@ -40,18 +40,18 @@ public enum Status {
 		return description;
 	}
 
-	public static Status getByCode(int code) {
+	public static BsoStatus getByCode(int code) {
 	    return lookup.get(code);
 	}
 
-	public static Status findByDescription(final String description){
+	public static BsoStatus findByDescription(final String description){
 	    return Arrays.stream(values()).filter(el -> el.description.equals(description)).findFirst().get();
 	}
 	
-    public ValidationResult checkIfValid(Status bsoStatus) {
+    public ValidationResult checkIfValid(BsoStatus bsoStatus) {
       //In case of check request
         if(bsoStatus == null) {
-            List<Status> toUse = new ArrayList<Status>(Arrays.asList(NEW, RETURNED));
+            List<BsoStatus> toUse = new ArrayList<BsoStatus>(Arrays.asList(NEW, RETURNED));
             if(!toUse.contains(this)) {
                 return ValidationResult.fail("BSO already in use");
             }
@@ -59,7 +59,7 @@ public enum Status {
         
       //In case set status to USED
         if(bsoStatus == USED) {
-            List<Status> toUse = new ArrayList<Status>(Arrays.asList(NEW, RETURNED));
+            List<BsoStatus> toUse = new ArrayList<BsoStatus>(Arrays.asList(NEW, RETURNED));
             if(!toUse.contains(this)) {
                 return ValidationResult.fail("BSO already in use");
             }

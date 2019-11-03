@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CONTRACTS")
 @AttributeOverride(name="id", column=@Column(name="POLICY_ID"))
-@SequenceGenerator(name="default_seq", sequenceName="POLICY_SEQ", allocationSize=1)
+@SequenceGenerator(name="default_seq", sequenceName="CONTRACT_SEQ", allocationSize=1)
 public class Contract extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

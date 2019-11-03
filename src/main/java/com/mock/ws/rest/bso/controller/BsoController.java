@@ -60,7 +60,7 @@ public class BsoController {
 	@RequestMapping(value = "/status_bso", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public ResponseEntity<Response> bsoUpdateStatus(@RequestBody Request requestBody, HttpServletRequest request) {
 	    
-	    Response response = bsoService.processUpdateRequest(requestBody);
+        Response response = bsoService.processUpdateRequest(requestBody);
 	    
 	    return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}

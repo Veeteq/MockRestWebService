@@ -17,8 +17,8 @@ import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
 import com.mock.ws.rest.bso.model.BsoIssuance;
+import com.mock.ws.rest.bso.model.BsoStatus;
 import com.mock.ws.rest.bso.model.Contract;
-import com.mock.ws.rest.bso.model.Status;
 import com.mock.ws.rest.bso.validators.CheckRequestValidator;
 import com.mock.ws.rest.utils.DateUtils;
 
@@ -38,7 +38,7 @@ public class BsoProcessingUpdateStrategy extends BsoProcessingAbstractStrategy {
         
         Optional<Agent> agent = agentRepository.findByLnrAndSkk(agentDTO.getLnr(), agentDTO.getSkk());
         List<Bso> bsoList = bsoRepository.findBySeriesAndNumberAndType(bsoDTO.getSeries(), bsoDTO.getNumber(), bsoDTO.getType());
-        Status newStatus = Status.getByCode(Integer.parseInt(bsoDTO.getStatus()));
+        BsoStatus newStatus = BsoStatus.getByCode(Integer.parseInt(bsoDTO.getStatus()));
         
         LocalDateTime checkDate = DateUtils.parse(request.getBusinessData().getIssueDate());
 
@@ -50,7 +50,7 @@ public class BsoProcessingUpdateStrategy extends BsoProcessingAbstractStrategy {
             Bso bso = bsoList.get(0);
             bso.setStatus(newStatus);
             bso.setUpdateDate(issueDate);
-            if(newStatus == Status.USED) {
+            if(newStatus == BsoStatus.USED) {
                 contract = contractRepository.findBySeriesAndNumber(contractDTO.getSeries(), contractDTO.getNumber());
                 if(contract == null) {
                     contract = ContractBuilder.buildContract(contractDTO);

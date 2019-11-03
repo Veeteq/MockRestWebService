@@ -41,7 +41,7 @@ public class BsoIssuance extends BaseEntity {
 
 	@Column(name="STATUS")
 	@Enumerated(value = EnumType.STRING)
-	private Status status = Status.NEW;
+	private BsoStatus status = BsoStatus.NEW;
 	
 	public Bso getBso() {
 		return bso;
@@ -67,11 +67,11 @@ public class BsoIssuance extends BaseEntity {
 		this.issueDate = issueDate;
 	}
 
-    public Status getStatus() {
+    public BsoStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(BsoStatus status) {
         this.status = status;
     }
 

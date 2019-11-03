@@ -18,7 +18,7 @@ import com.mock.ws.rest.ApplicationConfiguration;
 import com.mock.ws.rest.DataSourceConfiguration;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
-import com.mock.ws.rest.bso.model.Status;
+import com.mock.ws.rest.bso.model.BsoStatus;
 import com.mock.ws.rest.bso.repository.AgentRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,7 +65,7 @@ public class AgentRepositoryTest {
         bso1.setAgent(agent1);
         bso1.setNumber("100");
         bso1.setSeries("AAA");
-        bso1.setStatus(Status.NEW);
+        bso1.setStatus(BsoStatus.NEW);
         bso1.setType("40");
         
         agent1.addBso(bso1);

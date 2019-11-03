@@ -5,9 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.mock.ws.rest.utils.BsoStatusConverter;
 
 @Entity
 @Table(name="BSO", uniqueConstraints = {@UniqueConstraint(columnNames = {"BSO_SERIES", "BSO_NUMBER"}, name = "UK_BSO_SERIES_NUMBER_INDEX_1")})
@@ -35,8 +36,8 @@ public class Bso extends BaseEntity {
 	private String type;
 	
 	@Column(name="STATUS")
-	@Enumerated(EnumType.STRING)
-	private Status status;
+	@Convert(converter = BsoStatusConverter.class)
+	private BsoStatus status;
 
 	@Column(name="UPDATE_DATE", columnDefinition="TIMESTAMP", nullable=false)
 	@CreationTimestamp
@@ -74,11 +75,11 @@ public class Bso extends BaseEntity {
 		this.type = type;
 	}
 
-	public Status getStatus() {
+	public BsoStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(BsoStatus status) {
 		this.status = status;
 	}
 

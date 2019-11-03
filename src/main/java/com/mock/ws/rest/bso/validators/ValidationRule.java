@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.model.Bso;
-import com.mock.ws.rest.bso.model.Status;
+import com.mock.ws.rest.bso.model.BsoStatus;
 
 @FunctionalInterface
 public interface ValidationRule {
-    void validate(Optional<Agent> agent, List<Bso> bsoList, Status bsoStatus, LocalDateTime issueDate);
+    void validate(Optional<Agent> agent, List<Bso> bsoList, BsoStatus bsoStatus, LocalDateTime issueDate);
 }
