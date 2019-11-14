@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.mock.ws.rest.bso.model.Agent;
-import com.mock.ws.rest.bso.service.IAgentService;
+import com.mock.ws.rest.bso.service.AgentService;
 
 @WebService
 public class SimpleSOAPService extends SpringBeanAutowiringSupport implements ISOAPService {
 
     private Logger logger = LoggerFactory.getLogger(SimpleSOAPService.class);
-    private IAgentService agentService;
+    private AgentService agentService;
     
     public SimpleSOAPService() {}
     
     @Autowired
-    public void setAgentService(IAgentService agentService) {
+    public void setAgentService(AgentService agentService) {
         this.agentService = agentService;
     }
 

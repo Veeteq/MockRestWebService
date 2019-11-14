@@ -1,5 +1,7 @@
 package com.mock.ws.rest.bso.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -22,10 +24,10 @@ import com.mock.ws.rest.bso.repository.BsoIssuanceRepository;
 import com.mock.ws.rest.bso.repository.BsoRepository;
 import com.mock.ws.rest.bso.repository.ContractRepository;
 import com.mock.ws.rest.bso.repository.RequestsHistoryRepository;
-import com.mock.ws.rest.bso.service.IBsoService;
+import com.mock.ws.rest.bso.service.BsoService;
 
 @Service
-public class BsoService implements IBsoService {
+public class BsoServiceImpl implements BsoService {
 
 	private AgentRepository agentRepository;
     private BsoIssuanceRepository bsoIssuanceRepository;
@@ -34,7 +36,7 @@ public class BsoService implements IBsoService {
 	private RequestsHistoryRepository requestsHistoryRepository;
 	
 	@Autowired
-	public BsoService(AgentRepository agentRepository, 
+	public BsoServiceImpl(AgentRepository agentRepository, 
 	                  BsoRepository bsoRepository, 
 	                  BsoIssuanceRepository bsoIssuanceRepository,
 	                  ContractRepository contractRepository,
@@ -46,6 +48,11 @@ public class BsoService implements IBsoService {
 		this.requestsHistoryRepository = requestsHistoryRepository;
 	}
 
+    @Override
+    public List<Bso> findAll() {
+        return bsoRepository.findAll();
+    }
+	
 	@Override
 	@Transactional
 	public Bso save(BsoDTO bsoDTO) {

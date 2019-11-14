@@ -13,16 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mock.ws.rest.bso.dto.request.AgentDTO;
 import com.mock.ws.rest.bso.model.Agent;
 import com.mock.ws.rest.bso.repository.AgentRepository;
-import com.mock.ws.rest.bso.service.IAgentService;
+import com.mock.ws.rest.bso.service.AgentService;
 
 @Service
-public class AgentService implements IAgentService {
+public class AgentServiceImpl implements AgentService {
 
-	private Logger logger = LoggerFactory.getLogger(AgentService.class);
+	private Logger logger = LoggerFactory.getLogger(AgentServiceImpl.class);
 	private AgentRepository agentRepository;
 
 	@Autowired
-	public AgentService(AgentRepository agentRepository) {
+	public AgentServiceImpl(AgentRepository agentRepository) {
 		this.agentRepository = agentRepository;
 	}
 
@@ -55,4 +55,9 @@ public class AgentService implements IAgentService {
 		logger.info("AgentService.getAgentByCode: " + code);
 		return agentRepository.findByCode(code);
 	}
+
+    @Override
+    public Optional<Agent> save(Agent agent) {
+        return Optional.of(agentRepository.save(agent));
+    }
 }

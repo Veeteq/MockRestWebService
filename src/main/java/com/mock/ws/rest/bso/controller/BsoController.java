@@ -23,19 +23,19 @@ import com.mock.ws.rest.bso.dto.request.Request;
 import com.mock.ws.rest.bso.dto.response.BusinessData;
 import com.mock.ws.rest.bso.dto.response.Response;
 import com.mock.ws.rest.bso.model.Agent;
-import com.mock.ws.rest.bso.service.IAgentService;
-import com.mock.ws.rest.bso.service.IBsoService;
+import com.mock.ws.rest.bso.service.AgentService;
+import com.mock.ws.rest.bso.service.BsoService;
 
 @RestController
 @RequestMapping(path = "/bso")
 public class BsoController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BsoController.class);
-	private IBsoService bsoService;
-	private IAgentService agentService;
+	private BsoService bsoService;
+	private AgentService agentService;
 
 	@Autowired
-	public BsoController(IBsoService bsoService, IAgentService agentService) {
+	public BsoController(BsoService bsoService, AgentService agentService) {
 		this.bsoService = bsoService;
 		this.agentService = agentService;
 	}
@@ -47,6 +47,14 @@ public class BsoController {
         mv.setViewName("agents");
         return mv;
 	}
+
+    @RequestMapping(value = "/bso", method = RequestMethod.GET, produces = "text/html; charset=utf-8")
+    public ModelAndView getBso(ModelAndView mv) {
+        mv.addObject("currentDate", new Date());
+        mv.addObject("bso", bsoService.findAll());
+        mv.setViewName("bso");
+        return mv;
+    }
 
 	@RequestMapping(value = "/check_bso5", method = RequestMethod.POST, consumes="application/json", produces="application/json")
 	public ResponseEntity<Response> bsoCheckStatus(@RequestBody Request requestBody, HttpServletRequest request) {

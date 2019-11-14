@@ -6,9 +6,11 @@ import java.util.Optional;
 import com.mock.ws.rest.bso.dto.request.AgentDTO;
 import com.mock.ws.rest.bso.model.Agent;
 
-public interface IAgentService {
+public interface AgentService {
 
     List<Agent> findAll();
+    
+    Optional<Agent> save(Agent agent);
     
     Agent save(AgentDTO agentDTO);
 

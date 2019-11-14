@@ -40,14 +40,14 @@ public class JpaConfiguration {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(this.dataSource);
         emf.setJpaVendorAdapter(jpaVendorAdapter);
-        emf.setPackagesToScan(new String[] {"com.mock.ws.rest.bso.model"} );
+        emf.setPackagesToScan(new String[] {"com.mock.ws.rest.bso.model", "com.mock.ws.rest.pg.model"} );
         return emf;
     }
     
     @Bean
     PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        transactionManager.setEntityManagerFactory(entityManagerFactory);        
         return transactionManager;
     }
 }

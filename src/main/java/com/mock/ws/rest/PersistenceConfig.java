@@ -7,14 +7,16 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-//@Configuration
+@Configuration
 //@EnableTransactionManagement
 //@PropertySource({ "classpath:application.properties" })
-//@ComponentScan({ "com.mock.ws.rest" }) 
+@ComponentScan({ "com.mock.ws.rest.bso.model" , "com.mock.ws.rest.pg.model" })
 public class PersistenceConfig {
 
 	@Autowired
@@ -27,7 +29,7 @@ public class PersistenceConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setPackagesToScan(new String[] { "com.mock.ws.rest.bso.model" });
+		sessionFactory.setPackagesToScan("com.mock.ws.rest.pg.model","com.mock.ws.rest.bso.model");
 		sessionFactory.setHibernateProperties(hibernateProperties);
 		return sessionFactory;
 	}
@@ -39,7 +41,7 @@ public class PersistenceConfig {
 		return hibernateTemplate;
 	}
 
-	@Bean
+	//@Bean
 	HibernateTransactionManager hibernateTransactionManager() {
 		HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
 		hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());

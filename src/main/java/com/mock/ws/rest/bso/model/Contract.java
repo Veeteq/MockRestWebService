@@ -1,5 +1,8 @@
 package com.mock.ws.rest.bso.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,12 @@ public class Contract extends BaseEntity {
     @Column(name = "POLICY_NUMBER")
     private String number;
 
+    @Column(name = "POLICY_PREMIUM")
+    private BigDecimal premium;
+
+    @Column(name = "DUE_DATE", columnDefinition="TIMESTAMP", nullable=true)
+    private LocalDateTime dueDate;
+    
     public String getSeries() {
         return series;
     }
@@ -34,5 +43,21 @@ public class Contract extends BaseEntity {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public BigDecimal getPremium() {
+        return premium;
+    }
+
+    public void setPremium(BigDecimal premium) {
+        this.premium = premium;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate= dueDate;
     }
 }
