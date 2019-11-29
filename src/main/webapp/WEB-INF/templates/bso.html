@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:text="#{bso.title}">Bso</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h3 th:text="#{bsotitle}"> Bso </h3>
+    Date : <b th:text="${currentDate}">Sat Oct 24 2015</b><br/>
+    <p th:text="#{bso.msg}">Bso Message</p>
+    <h3 th:text="#{bso.writers}"> Writers </h3>
+    <table>
+        <tr th:each="elt : ${bso}">
+          <td th:text="${elt.series}">Series</td>
+          <td th:text="${elt.number}">Number</td>
+<!--           <td th:text="${elt.agent.lnr}">Update date</td>  -->
+          <td th:text="${elt.status}">Status</td>
+          <td th:text="${elt.type}">Type</td>
+          <td th:text="${elt.updateDate}">Update date</td>
+    </table>
+  </body>
+</html> 
