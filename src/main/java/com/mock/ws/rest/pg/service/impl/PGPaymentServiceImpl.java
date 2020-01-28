@@ -37,4 +37,9 @@ public class PGPaymentServiceImpl implements PGPaymentService {
         return paymentRespository.findByPaymentNumber(paymentNumber);
     }
 
+    @Override
+    public PGExpectedPayment findById(Long id) {
+        return paymentRespository.findById(id);
+    }
+
 }

@@ -56,4 +56,8 @@ public abstract class BaseEntity implements Serializable, Comparable<BaseEntity>
 			return false;
 		return true;
 	}	
+	
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

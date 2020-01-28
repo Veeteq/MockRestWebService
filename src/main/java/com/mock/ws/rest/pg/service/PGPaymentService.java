@@ -11,4 +11,6 @@ public interface PGPaymentService {
     PGExpectedPayment save(PGExpectedPayment payment);
 
     PGExpectedPayment findByPaymentNumer(String paymentNumber);
+
+    PGExpectedPayment findById(Long id);
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:text="#{ep.title}">Bso</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h3 th:text="#{ep.title}"> Bso </h3>
+    Date : <b th:text="${currentDate}">Sat Oct 24 2015</b><br/>
+    <h3 th:text="#{ep.list}">List</h3>
+    <table>
+        <tr th:each="expectedPayment : ${expectedPayments}">
+          <td th:text="${expectedPayment.paymentNumber}">Number</td>
+          <td th:text="${expectedPayment.amount}">Amount</td>
+          <td th:text="${expectedPayment.kind}">Kind</td>
+          <td th:text="${expectedPayment.operName}">operName</td>
+          <td th:text="${expectedPayment.operType}">operType</td>
+          <td th:text="${expectedPayment.type}">Type</td>
+          <td th:text="${expectedPayment.cancelled}">Cancelled</td>
+          <td th:text="${expectedPayment.isFullyPaid()}">Fully Paid</td>
+          <td><a href="#" th:href="@{'/rest/gw/expectedpayment/' + ${expectedPayment.id} + '/pay'}">Pay</a>
+    </table>
+  </body>
+</html> 

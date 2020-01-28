@@ -60,14 +60,14 @@ public class PGProcessingSetStrategy extends PGProcessingAbstractStrategy {
             payer = payerService.save(payer);
         }
         
-        PGExpectedPayment payment = paymentService.findByPaymentNumer(paymentDTO.getPaymentNumber());
-        if(payment == null) {
-            payment = PGPaymentBuilder.buildPayment(paymentDTO);
-            payment.setAgentReport(agentReport);
-            payment.setAgent(agent.get());
-            payment.setContract(contract);
-            payment.setPayer(payer);
-            payment = paymentService.save(payment);
+        PGExpectedPayment ecpectedPayment = paymentService.findByPaymentNumer(paymentDTO.getPaymentNumber());
+        if(ecpectedPayment == null) {
+            ecpectedPayment = PGPaymentBuilder.buildPayment(paymentDTO);
+            ecpectedPayment.setAgentReport(agentReport);
+            ecpectedPayment.setAgent(agent.get());
+            ecpectedPayment.setContract(contract);
+            ecpectedPayment.setPayer(payer);
+            ecpectedPayment = paymentService.save(ecpectedPayment);
         }
 
         return generateSetResponse();

@@ -1,13 +1,17 @@
 package com.mock.ws.rest;
 
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -16,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource({ "classpath:application.properties" })
-public class DataSourceConfiguration {
+public class DataSourceConfiguration implements DisposableBean {
 
 	private Environment env;
 	private static final Logger logger = LoggerFactory.getLogger(DataSourceConfiguration.class);
@@ -29,6 +33,7 @@ public class DataSourceConfiguration {
 	}
 
 	@Bean(name="dataSource")
+	@DependsOn(value = "h2Server")
 	@Profile(value=ApplicationConfiguration.PROFILE_H2)
 	public DataSource getDevDataSource() {
 		logger.info("running getDevDataSource() for H2");
@@ -74,4 +79,33 @@ public class DataSourceConfiguration {
 		properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 		return properties;
 	}
+
+	@Bean(initMethod = "start", destroyMethod = "stop")
+	@DependsOn(value = "h2WebServer")
+	public Server h2Server() {
+	    try {
+	        logger.info("Starting H2 server");
+            return Server.createTcpServer();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+	}
+	
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public Server h2WebServer() {
+        try {
+            logger.info("Starting H2 web server");
+            return Server.createWebServer();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+	@Override
+    public void destroy() throws Exception {
+        System.out.println("## Stopping H2 DB Server");
+        
+    }
 }

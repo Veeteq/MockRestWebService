@@ -5,10 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <h3 th:text="#{bsotitle}"> Bso </h3>
+    <h3 th:text="#{bso.title}"> Bso </h3>
     Date : <b th:text="${currentDate}">Sat Oct 24 2015</b><br/>
-    <p th:text="#{bso.msg}">Bso Message</p>
-    <h3 th:text="#{bso.writers}"> Writers </h3>
+    <h3 th:text="#{bso.list}">List</h3>
     <table>
         <tr th:each="elt : ${bso}">
           <td th:text="${elt.series}">Series</td>

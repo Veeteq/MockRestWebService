@@ -6,10 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.h2.server.web.WebServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationInitializer.class);
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -31,18 +35,18 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
-        return new Filter[] { characterEncodingFilter};
+        return new Filter[] {characterEncodingFilter};
     }
     
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-        //servletContext.setInitParameter("spring.profiles.active", "oracle");
-
-        if (servletContext.getInitParameter("spring.profiles.active") == ApplicationConfiguration.PROFILE_H2) {
+        
+        //if (initParameter == ApplicationConfiguration.PROFILE_H2) {
+            logger.info( "Initializing H2 console" );
             ServletRegistration.Dynamic h2Servlet = servletContext.addServlet("h2-console", new WebServlet());
             h2Servlet.setLoadOnStartup(2);
-            h2Servlet.addMapping("/console/");
-        }
+            h2Servlet.addMapping("/console/*");
+        //}
     }
 }

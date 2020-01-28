@@ -8,4 +8,6 @@ public interface PGPaymentRepository extends JpaRepository<PGExpectedPayment, Lo
 
     PGExpectedPayment findByPaymentNumber(String paymentNumber);
 
+    PGExpectedPayment findById(Long id);
+
 }

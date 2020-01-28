@@ -1,6 +1,7 @@
 package com.mock.ws.rest.bso.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -62,7 +63,10 @@ public class PGExpectedPayment extends BaseEntity {
     private PGAgentReport agentReport;
 
     @OneToMany(mappedBy="expectedPayment", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<PGPartialPayment> payments;
+    private List<PGPartialPayment> payments = new ArrayList<PGPartialPayment>();
+
+    @Column(name = "IS_CANCELLED", nullable = false, columnDefinition = "BIT")
+    private boolean cancelled;
 
     public String getPaymentNumber() {
         return paymentNumber;
@@ -148,6 +152,14 @@ public class PGExpectedPayment extends BaseEntity {
         return payments;
     }
 
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+
     public boolean isFullyPaid() {
         BigDecimal paidSum = this.payments.stream().map(mapper -> mapper.getAmount()).reduce(BigDecimal.ZERO, BigDecimal::add);
         return paidSum.equals(this.amount);
@@ -155,5 +167,11 @@ public class PGExpectedPayment extends BaseEntity {
 
     public BigDecimal sumOfPartialPayments() {
         return this.payments.stream().map(mapper -> mapper.getAmount()).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+    
+    public PGExpectedPayment addPartialPayment(PGPartialPayment partialPayment) {
+        partialPayment.setExpectedPayment(this);
+        payments.add(partialPayment);
+        return this;
     }
 }

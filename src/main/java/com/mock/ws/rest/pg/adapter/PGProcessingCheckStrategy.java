@@ -16,6 +16,7 @@ public class PGProcessingCheckStrategy extends PGProcessingAbstractStrategy {
         if(payment == null) {
             return generateErrorResponse(paymentDTO.getPaymentNumber(), PGProcessingResult.NOT_FOUND);
         }
+                
         return generateSuccessResponse(payment);
     }
 
